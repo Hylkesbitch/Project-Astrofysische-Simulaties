@@ -1,0 +1,65 @@
+//
+//  main.cpp
+//  PROJECT
+//
+//  Created by Syrthe Roeder on 6/11/18.
+//  Copyright © 2018 Syrthe Roeder. All rights reserved.
+//
+
+#include <stdio.h>
+#include <vector>
+#include "Vec.h"
+#include "Integrators.h"
+#include "Functions.h"
+
+using namespace std;
+
+
+int main() {
+    
+    double h = 0.01;
+    double t_max = 500.;
+    
+    //generate_initial_cond();
+    
+    /*vector<double> m = file_to_vector_double("massa.txt");
+    vector<vector<Vec>> posities_6D = file_to_vector("posities_6D.txt");
+    vector<Vec> r0 = posities_6D[0];
+    vector<Vec> v0 = posities_6D[1];*/
+    
+    
+    //zelf initiele condities gegenereerd
+    vector<double> m;
+    m.push_back(0.2);
+    m.push_back(0.5);
+    m.push_back(0.1);
+    m.push_back(0.15);
+    m.push_back(0.05);
+    
+    vector<Vec> r0;
+    r0.push_back(Vec(1.0, 0.0, 0.6));
+    r0.push_back(Vec(0.5, 0.3, 0.5));
+    r0.push_back(Vec(0.0, 0.9, 0.2));
+    r0.push_back(Vec(0.9, 1.0, 0.0));
+    r0.push_back(Vec(0.2, 0.8, 0.9));
+    
+    vector<Vec> v0;
+    v0.push_back(Vec(0.0, 0.04, 0.03));
+    v0.push_back(Vec(0.02, 0.05, 0.0));
+    v0.push_back(Vec(0.03, 0.03, 0.02));
+    v0.push_back(Vec(0.0, 0.04, 0.05));
+    v0.push_back(Vec(0.03, 0.04, 0.02));
+    
+    
+    //centering and scaling
+    r0 = centering(r0);
+    v0 = centering(v0);
+    r0 = scaling_r(r0);
+    v0 = scaling_v(v0);
+    
+    
+    
+    Embedded_RK(h, t_max, r0, v0, m);
+    
+    return 0;
+}
